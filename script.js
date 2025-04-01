@@ -1,35 +1,44 @@
-// Lädt den aktuellen Status aus data.json
-async function loadData() {
-    let response = await fetch('data.json');
-    let data = await response.json();
-    return data;
+// Holt den aktuellen Abschnitt aus dem Speicher
+function getCurrentSection() {
+    return localStorage.getItem("currentSection") || "1";
 }
 
-// Aktualisiert den Abschnitt in data.json
-async function updateSection(newSection) {
-    let data = await loadData();
-    data.section = newSection;
-
-    await fetch('data.json', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
-
+// Speichert den neuen Abschnitt
+function updateSection(newSection) {
+    localStorage.setItem("currentSection", newSection);
     alert(`Abschnitt ${newSection} freigeschaltet!`);
-    location.reload();
+    location.reload(); // Seite neu laden, damit der neue Abschnitt sichtbar wird
 }
 
-// Likes für einen Abschnitt speichern
-async function likeSection(sectionNumber) {
-    let data = await loadData();
-    data.likes[sectionNumber]++;
+// Zeigt den richtigen Abschnitt auf der Tour-Seite
+function showCurrentSection() {
+    let currentSection = getCurrentSection();
+    document.querySelectorAll('.section').forEach(div => div.style.display = 'none');
 
-    await fetch('data.json', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+    if (currentSection <= 3) {
+        document.getElementById(`section-${currentSection}`).style.display = 'block';
+    } else {
+        window.location.href = "final.html"; // Nach der letzten Station zur finalen Seite weiterleiten
+    }
+}
+
+// Like-Funktion (Likes werden im Speicher gezählt)
+function likeSection(sectionNumber) {
+    let likes = JSON.parse(localStorage.getItem("likes")) || {};
+    likes[sectionNumber] = (likes[sectionNumber] || 0) + 1;
+    localStorage.setItem("likes", JSON.stringify(likes));
+    alert(`Danke für dein Like für Abschnitt ${sectionNumber}!`);
+}
+
+// Finale Seite zeigt die beliebtesten Abschnitte
+function showFinalPage() {
+    let likes = JSON.parse(localStorage.getItem("likes")) || {};
+    let sortedSections = Object.keys(likes).sort((a, b) => likes[b] - likes[a]);
+
+    let content = "<h2>Die beliebtesten Abschnitte:</h2>";
+    sortedSections.slice(0, 2).forEach(sec => {
+        content += `<p>Abschnitt ${sec}: ${document.getElementById(`section-${sec}`).innerHTML}</p>`;
     });
 
-    alert(`Danke für dein Like für Abschnitt ${sectionNumber}!`);
+    document.getElementById("final-content").innerHTML = content;
 }
