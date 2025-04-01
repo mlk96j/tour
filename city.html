@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlin NFC Tour</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .section { display: none; margin-bottom: 20px; }
+        .visible { display: block; }
+        .like { cursor: pointer; color: blue; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Berlin NFC Tour</h1>
+    <div id="content"></div>
+    <button onclick="nextSection()">Weiter</button>
+
+    <script>
+        let sections = [
+            {
+                title: "Altstadt",
+                paragraphs: [
+                    "Berlin's Altstadt is rich in history...",
+                    "The architecture reflects centuries of change...",
+                    "Many famous landmarks originate from this period...",
+                    "A vibrant culture has always been present..."
+                ]
+            },
+            {
+                title: "Mitte",
+                paragraphs: [
+                    "Mitte is the heart of modern Berlin...",
+                    "The government district is here...",
+                    "You can see the famous Brandenburg Gate...",
+                    "Museumsinsel hosts world-class exhibits..."
+                ]
+            },
+            {
+                title: "Moderne Stadt",
+                paragraphs: [
+                    "Berlin has embraced contemporary architecture...",
+                    "The startup scene is booming in Berlin...",
+                    "Sustainable projects shape the city's future...",
+                    "The fusion of past and future is unique here..."
+                ]
+            }
+        ];
+        let currentSection = 0;
+
+        function showSection(index) {
+            let contentDiv = document.getElementById("content");
+            contentDiv.innerHTML = `<h2>${sections[index].title}</h2>`;
+            sections[index].paragraphs.forEach((para, i) => {
+                contentDiv.innerHTML += `<p>${para} <span class='like' onclick='likeParagraph(${index}, ${i})'>Gefällt mir</span></p>`;
+            });
+        }
+
+        function nextSection() {
+            if (currentSection < sections.length - 1) {
+                currentSection++;
+                showSection(currentSection);
+            } else {
+                finalizeTour();
+            }
+        }
+
+        function likeParagraph(sectionIndex, paragraphIndex) {
+            alert(`Gefällt mir für: ${sections[sectionIndex].paragraphs[paragraphIndex]}`);
+            // Hier könnte ein API-Aufruf gespeichert werden
+        }
+
+        function finalizeTour() {
+            document.getElementById("content").innerHTML = "<h2>Finale Tour-Ergebnisse</h2><p>Die beliebtesten Abschnitte werden gespeichert...</p>";
+        }
+
+        showSection(currentSection);
+    </script>
+</body>
+</html>
