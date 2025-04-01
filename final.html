@@ -6,23 +6,8 @@
     <title>Finale Tourseite</title>
     <script src="script.js" defer></script>
 </head>
-<body>
+<body onload="showFinalPage()">
     <h1>Danke für die Tour!</h1>
     <div id="final-content"></div>
-
-    <script>
-        async function showFinalPage() {
-            let data = await loadData();
-            let sortedSections = Object.keys(data.likes).sort((a, b) => data.likes[b] - data.likes[a]);
-
-            let content = "<h2>Die beliebtesten Abschnitte:</h2>";
-            sortedSections.slice(0, 2).forEach(sec => {
-                content += `<p>Abschnitt ${sec}: ${document.getElementById(`section-${sec}`).innerHTML}</p>`;
-            });
-
-            document.getElementById("final-content").innerHTML = content;
-        }
-        showFinalPage();
-    </script>
 </body>
 </html>
