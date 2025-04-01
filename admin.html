@@ -3,29 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin-Steuerung</title>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Admin Panel</h1>
-    <button id="next-section">Nächsten Abschnitt freischalten</button>
-
-    <script>
-        document.getElementById("next-section").addEventListener("click", async function () {
-            const response = await fetch("data.json");
-            const data = await response.json();
-
-            if (data.current_section < data.sections.length) {
-                data.current_section += 1;
-                await fetch("data.json", {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-                alert("Abschnitt freigeschaltet!");
-            } else {
-                alert("Alle Abschnitte sind bereits freigeschaltet.");
-            }
-        });
-    </script>
+    <h2>Admin-Bereich</h2>
+    <button onclick="updateSection(2)">Nächsten Abschnitt freischalten (2)</button>
+    <button onclick="updateSection(3)">Letzten Abschnitt freischalten (3)</button>
+    <button onclick="updateSection(999)">Tour abschließen & Finale anzeigen</button>
 </body>
 </html>
