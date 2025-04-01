@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berlin Tour</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Berlin Tour</h1>
-    <div id="content">
-        <h2 id="section-title"></h2>
-        <ul id="paragraphs"></ul>
-    </div>
-    <button id="next-section" style="display: none;">Weiter</button>
+    <h1>Willkommen zur Berlin Tour</h1>
 
-    <script src="script.js"></script>
+    <div id="section-1" class="section">Historische Fakten über Berlin</div>
+    <div id="section-2" class="section" style="display: none;">Architektur & Design</div>
+    <div id="section-3" class="section" style="display: none;">Kulturelle Highlights</div>
+
+    <button onclick="likeSection(1)">Gefällt mir (Abschnitt 1)</button>
+    <button onclick="likeSection(2)">Gefällt mir (Abschnitt 2)</button>
+    <button onclick="likeSection(3)">Gefällt mir (Abschnitt 3)</button>
+
+    <script>
+        async function showCurrentSection() {
+            let data = await loadData();
+            document.querySelectorAll('.section').forEach(div => div.style.display = 'none');
+            if (data.section <= 3) {
+                document.getElementById(`section-${data.section}`).style.display = 'block';
+            } else {
+                window.location.href = "final.html";
+            }
+        }
+        showCurrentSection();
+    </script>
 </body>
 </html>
