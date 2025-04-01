@@ -1,38 +1,8 @@
 {
-  "current_section": 1,
-  "sections": [
-    {
-      "id": 1,
-      "title": "Historisches Berlin",
-      "content": [
-        "Geschichte des Brandenburger Tors",
-        "Bedeutung für die Deutsche Einheit",
-        "Architektonische Merkmale",
-        "Interessante Anekdoten"
-      ],
-      "likes": [0, 0, 0, 0]
-    },
-    {
-      "id": 2,
-      "title": "Architektur & Moderne",
-      "content": [
-        "Wiederaufbau nach dem Krieg",
-        "Moderne Hochhäuser & Design",
-        "Bedeutung für die Berliner Wirtschaft",
-        "Kulturelle Veranstaltungen"
-      ],
-      "likes": [0, 0, 0, 0]
-    },
-    {
-      "id": 3,
-      "title": "Berliner Kultur",
-      "content": [
-        "Überblick über die Museumsinsel",
-        "Bedeutung der Kunstwerke",
-        "Verborgene Geschichten hinter den Museen",
-        "Zukunftspläne für die Museumsinsel"
-      ],
-      "likes": [0, 0, 0, 0]
+    "section": 1,
+    "likes": {
+        "1": 0,
+        "2": 0,
+        "3": 0
     }
-  ]
 }
